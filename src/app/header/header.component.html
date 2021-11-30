@@ -1,0 +1,37 @@
+<mat-toolbar color="accent">
+  <span>
+    <a routerLink="/">Job Search<mat-icon aria-hidden="false" aria-label="Example home icon">work_outline</mat-icon></a>
+  </span>
+  <li *ngIf="userIsAuthenticated">
+    <a mat-button [routerLink]="['/my-profile',userId]" routerLinkActive="mat-primary">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon>{{email}}
+
+    </a>
+  </li>
+  <span class="spacer"></span>
+  <ul>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/create" routerLinkActive="mat-primary">Create Job
+        <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+      </a>
+    </li>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/auth/login" routerLinkActive="mat-primary">Login
+        <mat-icon matTooltip="Log In" aria-hidden="false" aria-label="Example home icon">login
+        </mat-icon></a>
+    </li>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-primary">Signup
+        <mat-icon matTooltip="Create Account" aria-hidden="false" aria-label="Example home icon">how_to_reg
+        </mat-icon>
+      </a>
+    </li>
+    <li matTooltip="Log Out" *ngIf="userIsAuthenticated">
+      <button mat-button (click)="onLogout()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">power_settings_new
+        </mat-icon>
+
+      </button>
+    </li>
+  </ul>
+</mat-toolbar>

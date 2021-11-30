@@ -1,0 +1,25 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div multi="true" *ngIf="posts.length > 0 && !isLoading" class='md-padding' layout="row" layout-wrap>
+  <mat-card class="example-card" *ngFor="let post of posts">
+    <mat-card-header>
+      <a mat-card-avatar [routerLink]="['/profile',post.creator]"><img mat-card-avatar class="example-header-image"
+          [src]="post.imagePath" alt="profile image">
+      </a>
+      <mat-card-title> {{post.title}}</mat-card-title>
+      <mat-card-subtitle>Price: {{post.price}}$</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{post.content}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions *ngIf="userIsAuthenticated && userId !== post.creator">
+      <a mat-button color="primary" [routerLink]="['/apply', post.id]">APPLY</a>
+      <button color="warn" (click)="onReport(post.id)" mat-button>REPORT</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangedPage($event)" *ngIf="posts.length > 0"></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No jobs added yet!</p>
